@@ -1,0 +1,7 @@
+{
+  "name": "serveyApp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
