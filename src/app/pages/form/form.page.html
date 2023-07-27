@@ -1,0 +1,70 @@
+
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>servey forms</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true">
+  <div *ngIf="serveysList.length !== 0; else elseBlock">
+    <ion-card *ngFor = " let servey of serveysList, let index">
+      <ion-card-header>
+        <ion-card-title>{{ servey.name }}</ion-card-title>
+        <ion-card-subtitle>{{ servey.birthday }}</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        {{ servey.description }}
+      </ion-card-content>
+    </ion-card>
+      <ion-infinite-scroll>
+       <ion-infinite-scroll-content loading-spinner="bubbles" loading-text="please wait…">
+       </ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+  </div>
+  <ng-template #elseBlock> 
+    <div class="ion-test-center">
+      <h3>No serveys !</h3>you do no thave register serveys. You can use the floating button bellow to add some
+    </div>
+  </ng-template>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="showServeyForm()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <ion-modal [isOpen]="isModalOpen">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+         <ion-title>Fill the form below</ion-title>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <ion-item>
+          <ion-label position="stacked">enter a name</ion-label>
+          <ion-input type="text" placeholder="the name" [(ngModel)]="serveyBeingCreated.name"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">enter a birthday</ion-label>
+          <ion-input type="date" placeholder="the date" [(ngModel)]="serveyBeingCreated.birthday"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">enter a decription</ion-label>
+          <ion-textarea placeholder="the description" [(ngModel)]="serveyBeingCreated.description"></ion-textarea>
+        </ion-item>
+      </ion-content>
+      <ion-footer>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-button (click)="cancel()">Cancel</ion-button>
+          </ion-buttons>
+          <ion-buttons slot="end">
+            <ion-button (click)="save()" [strong]="true">Save</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-footer>
+    </ng-template>
+  </ion-modal>
+</ion-content>
+
